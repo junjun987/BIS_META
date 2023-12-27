@@ -1,0 +1,228 @@
+R7 <- read.csv("R7.csv",header = T)
+R7 <- subset(R7,R7$group=="IVA")
+R7 <- subset(R7,R7$group=="Combined")
+R7_R <- meta::metacont(n.e,mean.e,sd.e,n.c,mean.c,sd.c,data = R7,comb.fixed=F,comb.random =T,
+                      sm="MD",studlab =paste(R7$Author,R7$Year,sep = "-"))
+R7_R                 
+forest(R7_R,lab.e="BIS",lab.c="Control")                
+forest(R7_R,family="sans",fontsize=9.5,lab.e="BIS",lab.c="Control",
+       lwd=2,col.diamond.fixed="lightslategray",col.diamond.lines.fixed="lightslategray",
+       col.diamond.random="maroon",col.diamond.lines.random="maroon",col.square="skyblue",col.study="lightslategray",
+       lty.fixed=4,plotwidth="6cm",colgap.forest.left="1cm",colgap.forest.right="1cm",just.forest="right",colgap.left="0.5cm",
+       colgap.right="0.5cm")
+#sensitive
+forest(metainf(R7_R,pooled = "random"))
+#剔除
+R7_1 <- R7[-c(20,24,26),]
+R7_R <- meta::metacont(n.e,mean.e,sd.e,n.c,mean.c,sd.c,data = R7_1,
+                       sm="MD",studlab =paste(R7_1$Author,R7_1$Year,sep = "-"))
+R7_R                 
+forest(R7_R)                
+#funnel
+funnel(R7_R, main="Funnel Plot")
+meta::metabias(R7_R, k.min = 3, method.bias = "Egger")
+f1 <- funnel(R7_R,comb.fixed=TRUE, level=0.95, contour=c(0.9, 0.95, 0.99), col.contour=c("darkgreen","green", "lightgreen"), lwd=2, cex=1, pch=14, studlab=TRUE,cex.studlab=0.75)
+legend(0.02, 0.01, c("0.1>p>0.05","0.05>p>0.01","<0.01"),fill=c("darkgreen", "green","lightgreen"))
+#剪补漏斗
+mytrimfill<-trimfill(R7_R)
+summary(mytrimfill)
+funnel(mytrimfill)
+funnel(mytrimfill,comb.fixed=TRUE, level=0.95, contour=c(0.9, 0.95, 0.99), col.contour=c("darkgreen","green", "lightgreen"), lwd=2, cex=1, pch=14, studlab=TRUE,cex.studlab=0.75)
+legend(4, 0.01, cex=0.6,c("0.1>p>0.05","0.05>p>0.01", "<0.01"),fill=c("darkgreen","green", "lightgreen"))
+#R8
+R8 <- read.csv("R8.csv",header = T)
+R8 <- subset(R8,R8$Group=="IVA")
+R8 <- subset(R8,R8$Group=="Combined")
+R8_R <- meta::metacont(n.e,mean.e,sd.e,n.c,mean.c,sd.c,data = R8,comb.fixed=F,comb.random =T,
+                       sm="MD",studlab =paste(R8$Author,R8$Year,sep = "-"))
+R8_R 
+forest(metainf(R8_R ,pooled = "random"))
+R8 <- R8 [-c(5),]
+forest(R8_R,lab.e="BIS",lab.c="Control")                
+forest(R8_R,family="sans",fontsize=9.5,lab.e="BIS",lab.c="Control",
+       lwd=2,col.diamond.fixed="lightslategray",col.diamond.lines.fixed="lightslategray",
+       col.diamond.random="maroon",col.diamond.lines.random="maroon",col.square="skyblue",col.study="lightslategray",
+       lty.fixed=4,plotwidth="6cm",colgap.forest.left="1cm",colgap.forest.right="1cm",just.forest="right",colgap.left="0.5cm",
+       colgap.right="0.5cm")
+#funnel
+funnel(R8_R, main="Funnel Plot")
+meta::metabias(R8_R, k.min =1, method.bias = "Egger")
+f1 <- funnel(R8_R,comb.fixed=TRUE, level=0.95, contour=c(0.9, 0.95, 0.99), col.contour=c("darkgreen","green", "lightgreen"), lwd=2, cex=1, pch=14, studlab=TRUE,cex.studlab=0.75)
+legend(0.02, 0.01, c("0.1>p>0.05","0.05>p>0.01","<0.01"),fill=c("darkgreen", "green","lightgreen"))
+#剪补漏斗
+mytrimfill<-trimfill(R8_R)
+summary(mytrimfill)
+funnel(mytrimfill,comb.fixed=TRUE, level=0.95, contour=c(0.9, 0.95, 0.99), col.contour=c("darkgreen","green", "lightgreen"), lwd=2, cex=1, pch=14, studlab=TRUE,cex.studlab=0.75)
+legend(-23, 0.01,cex=0.4, c("0.1>p>0.05","0.05>p>0.01", "<0.01"),fill=c("darkgreen","green", "lightgreen"))
+#R9
+R9 <- read.csv("R9.csv",header = T)
+R9 <- subset(R9,R9$group=="IVA")
+R9 <- subset(R9,R9$group=="Combined")
+R9_R <- meta::metacont(n.e,mean.e,sd.e,n.c,mean.c,sd.c,data = R9,comb.fixed=F,comb.random =T, byvar=group,
+                       sm="MD",studlab =paste(R9$Author,R9$Year,sep = "-"))
+R9_R                 
+forest(metainf(R9_R ,pooled = "random"))
+forest(R9_R,lab.e="BIS",lab.c="Control")                
+forest(R9_R,family="sans",fontsize=8,lab.e="BIS",lab.c="Control",
+       lwd=2,col.diamond.fixed="lightslategray",col.diamond.lines.fixed="lightslategray",
+       col.diamond.random="maroon",col.diamond.lines.random="maroon",col.square="skyblue",col.study="lightslategray",
+       lty.fixed=4,plotwidth="3cm",colgap.forest.left="1cm",colgap.forest.right="1cm",just.forest="right",colgap.left="0.5cm",
+       colgap.right="0.5cm")
+#funnel
+funnel(R9_R, main="Funnel Plot")
+meta::metabias(R9_R, k.min = 14, method.bias = "Egger")
+f1 <- funnel(R9_R,comb.fixed=TRUE, level=0.95, contour=c(0.9, 0.95, 0.99), col.contour=c("darkgreen","green", "lightgreen"), lwd=2, cex=1, pch=14, studlab=TRUE,cex.studlab=0.75)
+legend(0.02, 0.01, c("0.1>p>0.05","0.05>p>0.01","<0.01"),fill=c("darkgreen", "green","lightgreen"))
+#剪补漏斗
+mytrimfill<-trimfill(R9_R)
+funnel(mytrimfill,comb.fixed=TRUE, level=0.95, contour=c(0.9, 0.95, 0.99), col.contour=c("darkgreen","green", "lightgreen"), lwd=2, cex=1, pch=14, studlab=TRUE,cex.studlab=0.75)
+legend(5, 0.008, cex=0.6,c("0.1>p>0.05","0.05>p>0.01", "<0.01"),fill=c("darkgreen","green", "lightgreen"))
+summary(mytrimfill)
+#R10
+R10 <- read.csv("R10.csv",header = T)
+R10 <- subset(R10,R10$group=="IVA")
+R10 <- subset(R10,R10$group=="Combined")
+R10_R <- meta::metacont(n.e,mean.e,sd.e,n.c,mean.c,sd.c,data = R10,comb.fixed=F,comb.random =T,
+                       sm="MD",studlab =paste(R10$Author,R10$Year,sep = "-"))
+R10_R
+forest(metainf(R10_R ,pooled = "random"))
+forest(R10_R,lab.e="BIS",lab.c="Control")                
+forest(R10_R,family="sans",fontsize=8,lab.e="BIS",lab.c="Control",
+       lwd=2,col.diamond.fixed="lightslategray",col.diamond.lines.fixed="lightslategray",
+       col.diamond.random="maroon",col.diamond.lines.random="maroon",col.square="skyblue",col.study="lightslategray",
+       lty.fixed=4,plotwidth="3cm",colgap.forest.left="1cm",colgap.forest.right="1cm",just.forest="right",colgap.left="0.5cm",
+       colgap.right="0.5cm")
+#funnel
+funnel(R10_R, main="Funnel Plot")
+meta::metabias(R10_R, k.min = 10, method.bias = "Egger")
+f1 <- funnel(R10_R,comb.fixed=TRUE, level=0.95, contour=c(0.9, 0.95, 0.99), col.contour=c("darkgreen","green", "lightgreen"), lwd=2, cex=1, pch=14, studlab=TRUE,cex.studlab=0.75)
+legend(-23, 0,cex = 0.6, c("0.1>p>0.05","0.05>p>0.01","<0.01"),fill=c("darkgreen", "green","lightgreen"))
+#剪补漏斗
+mytrimfill<-trimfill(R10_R)
+funnel(mytrimfill,comb.fixed=TRUE, level=0.95, contour=c(0.9, 0.95, 0.99), col.contour=c("darkgreen","green", "lightgreen"), lwd=2, cex=1, pch=14, studlab=TRUE,cex.studlab=0.75)
+legend(10, 0.01, cex=0.5,c("0.1>p>0.05","0.05>p>0.01", "<0.01"),fill=c("darkgreen","green", "lightgreen"))
+summary(mytrimfill)
+#R11
+R11 <- read.csv("R11.csv",header = T)
+R11 <- subset(R11,R11$group=="IVA")
+R11 <- subset(R11,R11$group=="Combined")
+View(R11)
+R11_R <- meta::metacont(n.e,mean.e,sd.e,n.c,mean.c,sd.c,data = R11,comb.fixed=F,comb.random =T,
+                        sm="MD",studlab =paste(R11$Author,R11$Year,sep = "-"))
+R11_R
+forest(metainf(R11_R), comb.fixed=TRUE)
+forest(R11_R,lab.e="BIS",lab.c="Control")                
+forest(R11_R,family="sans",fontsize=8,lab.e="BIS",lab.c="Control",
+       lwd=2,col.diamond.fixed="lightslategray",col.diamond.lines.fixed="lightslategray",
+       col.diamond.random="maroon",col.diamond.lines.random="maroon",col.square="skyblue",col.study="lightslategray",
+       lty.fixed=4,plotwidth="3cm",colgap.forest.left="1cm",colgap.forest.right="1cm",just.forest="right",colgap.left="0.5cm",
+       colgap.right="0.5cm")
+#funnel
+funnel(R11_R, main="Funnel Plot")
+meta::metabias(R11_R, k.min = 8, method.bias = "Egger")
+f1 <- funnel(R11_R,comb.fixed=TRUE, level=0.95, contour=c(0.9, 0.95, 0.99), col.contour=c("darkgreen","green", "lightgreen"), lwd=2, cex=1, pch=14, studlab=TRUE,cex.studlab=0.75)
+legend(0.02, 0.01, c("0.1>p>0.05","0.05>p>0.01","<0.01"),fill=c("darkgreen", "green","lightgreen"))
+#剪补漏斗
+mytrimfill<-trimfill(R11_R)
+funnel(mytrimfill,comb.fixed=TRUE, level=0.95, contour=c(0.9, 0.95, 0.99), col.contour=c("darkgreen","green", "lightgreen"), lwd=2, cex=1, pch=14, studlab=TRUE,cex.studlab=0.75)
+summary(mytrimfill)
+legend(10, 0.01,cex = 0.6, c("0.1>p>0.05","0.05>p>0.01", "<0.01"),fill=c("darkgreen","green", "lightgreen"))
+#R12
+R12<- read.csv("R12.csv",header = T)
+R12 <- subset(R12,R12$group=="Child")
+R12 <- subset(R12,R12$group=="Old")
+R12_R <- meta::metacont(n.e,mean.e,sd.e,n.c,mean.c,sd.c,data = R12,comb.fixed=F,comb.random =T,
+                        sm="MD",studlab =paste(R12$Author,R12$Year,sep = "-"))
+R12_R 
+forest(metainf(R12_R ,pooled = "random"))
+forest(R12_R,lab.e="BIS",lab.c="Control")                              
+forest(R12_R,family="sans",fontsize=8,lab.e="BIS",lab.c="Control",
+       lwd=2,col.diamond.fixed="lightslategray",col.diamond.lines.fixed="lightslategray",
+       col.diamond.random="maroon",col.diamond.lines.random="maroon",col.square="skyblue",col.study="lightslategray",
+       lty.fixed=4,plotwidth="3cm",colgap.forest.left="1cm",colgap.forest.right="1cm",just.forest="right",colgap.left="0.5cm",
+       colgap.right="0.5cm")
+#funnel
+funnel(R12_R, main="Funnel Plot")
+meta::metabias(R12_R, k.min = 4, method.bias = "Egger")
+f1 <- funnel(R12_R,comb.fixed=TRUE, level=0.95, contour=c(0.9, 0.95, 0.99), col.contour=c("darkgreen","green", "lightgreen"), lwd=2, cex=1, pch=14, studlab=TRUE,cex.studlab=0.75)
+legend(0.02, 0.01, c("0.1>p>0.05","0.05>p>0.01","<0.01"),fill=c("darkgreen", "green","lightgreen"))
+#剪补漏斗
+mytrimfill<-trimfill(R12_R)
+funnel(mytrimfill,comb.fixed=TRUE, level=0.95, contour=c(0.9, 0.95, 0.99), col.contour=c("darkgreen","green", "lightgreen"), lwd=2, cex=1, pch=14, studlab=TRUE,cex.studlab=0.75)
+legend(5, 0.01, cex=0.5,c("0.1>p>0.05","0.05>p>0.01", "<0.01"),fill=c("darkgreen","green", "lightgreen"))
+summary(mytrimfill)
+
+#R13
+R13<- read.csv("R13.csv",header = T)
+R13_R <- meta::metacont(n.e,mean.e,sd.e,n.c,mean.c,sd.c,data = R13,
+                        sm="MD",studlab =paste(R13$Author,R13$Year,sep = "-"))
+R13_R                 
+forest(R13_R)                
+forest(R13_R,family="sans",fontsize=8,lab.e="BIS",lab.c="Control",
+       lwd=2,col.diamond.fixed="lightslategray",col.diamond.lines.fixed="lightslategray",
+       col.diamond.random="maroon",col.diamond.lines.random="maroon",col.square="skyblue",col.study="lightslategray",
+       lty.fixed=4,plotwidth="3cm",colgap.forest.left="1cm",colgap.forest.right="1cm",just.forest="right",colgap.left="0.5cm",
+       colgap.right="0.5cm")
+#funnel
+funnel(R13_R, main="Funnel Plot")
+meta::metabias(R13_R, k.min = 8, method.bias = "Egger")
+f1 <- funnel(R13_R,comb.fixed=TRUE, level=0.95, contour=c(0.9, 0.95, 0.99), col.contour=c("darkgreen","green", "lightgreen"), lwd=2, cex=1, pch=14, studlab=TRUE,cex.studlab=0.75)
+legend(0.02, 0.01, c("0.1>p>0.05","0.05>p>0.01","<0.01"),fill=c("darkgreen", "green","lightgreen"))
+#剪补漏斗
+mytrimfill<-trimfill(R13_R)
+funnel(mytrimfill,comb.fixed=TRUE, level=0.95, contour=c(0.9, 0.95, 0.99), col.contour=c("darkgreen","green", "lightgreen"), lwd=2, cex=1, pch=14, studlab=TRUE,cex.studlab=0.75)
+
+legend(0.02, 0.01, c("0.1>p>0.05","0.05>p>0.01", "<0.01"),fill=c("darkgreen","green", "lightgreen"))
+#R14-麻醉药总
+R14<- read.csv("R14.csv",header = T)
+R14 <- subset(R14,R14$group=="IVA")
+R14 <- subset(R14,R14$group=="Combined")
+R14 <- R14[-c(93),]
+R14_R <- meta::metacont(n.e,mean.e,sd.e,n.c,mean.c,sd.c,data = R14,comb.fixed=F,comb.random =T,
+                        sm="SMD",studlab =paste(R14$Author,R14$Year,sep = "-"))
+R14_R                 
+forest(metainf(R14_R ,pooled = "random"))
+forest(R14_R,lab.e="BIS",lab.c="Control")                
+forest(R14_R,family="sans",fontsize=8,lab.e="BIS",lab.c="Control",
+       lwd=2,col.diamond.fixed="lightslategray",col.diamond.lines.fixed="lightslategray",
+       col.diamond.random="maroon",col.diamond.lines.random="maroon",col.square="skyblue",col.study="lightslategray",
+       lty.fixed=4,plotwidth="3cm",colgap.forest.left="1cm",colgap.forest.right="1cm",just.forest="right",colgap.left="0.5cm",
+       colgap.right="0.5cm")
+#funnel
+funnel(R14_R, main="Funnel Plot")
+meta::metabias(R14_R, k.min = 43, method.bias = "Egger")
+f1 <- funnel(R14_R,comb.fixed=TRUE, level=0.95, contour=c(0.9, 0.95, 0.99), col.contour=c("darkgreen","green", "lightgreen"), lwd=2, cex=1, pch=14, studlab=TRUE,cex.studlab=0.75)
+legend(0.02, 0.01, c("0.1>p>0.05","0.05>p>0.01","<0.01"),fill=c("darkgreen", "green","lightgreen"))
+#剪补漏斗
+mytrimfill<-trimfill(R14_R)
+funnel(mytrimfill,comb.fixed=TRUE, level=0.95, contour=c(0.9, 0.95, 0.99), col.contour=c("darkgreen","green", "lightgreen"), lwd=2, cex=1, pch=14, studlab=TRUE,cex.studlab=0.75)
+legend(1, 0.01, cex=0.6,c("0.1>p>0.05","0.05>p>0.01", "<0.01"),fill=c("darkgreen","green", "lightgreen"))
+summary(mytrimfill)
+
+#####麻醉药分类-丙泊酚+芬太尼
+
+#R16
+R16<- read.csv("R16.csv",header = T)
+R16 <- subset(R16,R16$group=="IVA")
+R16 <- subset(R16,R16$group=="Combined")
+R16 <- R16[-(4),]
+R16_R <- meta::metacont(n.e,mean.e,sd.e,n.c,mean.c,sd.c,data = R16,comb.fixed=F,comb.random =T,
+                        sm="SMD",studlab =paste(R16$Author,R16$Year,sep = "-"))
+R16_R                 
+forest(metainf(R16_R ,pooled = "random"))
+forest(R16_R,lab.e="BIS",lab.c="Control")                
+forest(R16_R,family="sans",fontsize=8,lab.e="BIS",lab.c="Control",
+       lwd=2,col.diamond.fixed="lightslategray",col.diamond.lines.fixed="lightslategray",
+       col.diamond.random="maroon",col.diamond.lines.random="maroon",col.square="skyblue",col.study="lightslategray",
+       lty.fixed=4,plotwidth="3cm",colgap.forest.left="1cm",colgap.forest.right="1cm",just.forest="right",colgap.left="0.5cm",
+       colgap.right="0.5cm")
+#funnel
+funnel(R16_R, main="Funnel Plot")
+meta::metabias(R16_R, k.min = 8, method.bias = "Egger")
+f1 <- funnel(R16_R,comb.fixed=TRUE, level=0.95, contour=c(0.9, 0.95, 0.99), col.contour=c("darkgreen","green", "lightgreen"), lwd=2, cex=1, pch=14, studlab=TRUE,cex.studlab=0.75)
+legend(0.02, 0.01, c("0.1>p>0.05","0.05>p>0.01","<0.01"),fill=c("darkgreen", "green","lightgreen"))
+#剪补漏斗
+mytrimfill<-trimfill(R16_R)
+funnel(mytrimfill,comb.fixed=TRUE, level=0.95, contour=c(0.9, 0.95, 0.99), col.contour=c("darkgreen","green", "lightgreen"), lwd=2, cex=1, pch=14, studlab=TRUE,cex.studlab=0.75)
+legend(0.5, 0.01, cex=0.6,c("0.1>p>0.05","0.05>p>0.01", "<0.01"),fill=c("darkgreen","green", "lightgreen"))
+summary(mytrimfill)
